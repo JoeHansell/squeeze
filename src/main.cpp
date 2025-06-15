@@ -4,8 +4,6 @@
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
-
     huffman_encoding::Decoding_Tree leaf_0 = std::uint8_t{0};
     huffman_encoding::Decoding_Tree leaf_1 = std::uint8_t{1};
     huffman_encoding::Decoding_Tree leaf_2 = std::uint8_t{2};
