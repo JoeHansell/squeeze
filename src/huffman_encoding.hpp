@@ -22,7 +22,7 @@ struct Internal_Decoding_Tree_Node
     Decoding_Tree* right;
 };
 
-std::vector<bool> encode(const std::vector<Symbol>& encoded_data, const Encoding_Map& encoding_map);
+std::vector<bool> encode(const std::vector<Symbol>& decoded_data, const Encoding_Map& encoding_map);
 
 std::vector<Symbol> decode(const std::vector<bool>& encoded_data, const Decoding_Tree& decoding_tree);
 
