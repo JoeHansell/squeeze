@@ -1,9 +1,26 @@
 #include "huffman_encoding.hpp"
+#include "infinite_precision_proportion.hpp"
+#include "utils.hpp"
 
 #include <iostream>
 
 int main()
 {
+    // Infinite_Precision_Proportion ipp0{{0b01010011101001, 0b100001011110101,0,0}};
+    Infinite_Precision_Proportion ipp0{{1}};
+    // Infinite_Precision_Proportion ipp1{{0b00111011010,0,0,0,0,0}};
+
+    Infinite_Precision_Proportion res = ipp0 * ipp0;
+    ipp0.display();
+    res.display();
+
+    // ipp0.display();
+    // for (std::size_t i = 0; i < 14;  i++)
+    // {
+    //     ipp0 = ipp0 >> i;
+    //     ipp0.display();
+    // }
+
     huffman_encoding::Decoding_Tree leaf_0 = std::uint8_t{0};
     huffman_encoding::Decoding_Tree leaf_1 = std::uint8_t{1};
     huffman_encoding::Decoding_Tree leaf_2 = std::uint8_t{2};
