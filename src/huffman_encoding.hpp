@@ -1,29 +1,30 @@
 #pragma once
 
+#include "utils.hpp"
+#include "codec.hpp"
+
 #include <variant>
 #include <cstdint>
+#include <cstddef>
 #include <vector>
-#include <map>
+#include <memory>
+#include <unordered_map>
 
-namespace huffman_encoding
+class Huffman_Codec : public Codec<Symbol>
 {
+public:
+    Huffman_Codec(const std::unordered_map<Symbol, double>& symbol_frequencies);
 
-using Symbol = std::uint8_t;
+    std::vector<bool> encode(const std::vector<Symbol>& decoded_data);
 
-using Encoding_Map = std::map<Symbol, std::vector<bool>>;
+    std::vector<Symbol> decode(const std::vector<bool>& encoded_data);
 
-struct Internal_Decoding_Tree_Node;
+private:
+    static Binary_Tree<Symbol> make_decoding_tree(const std::unordered_map<Symbol, double>& symbol_frequencies);
 
-using Decoding_Tree = std::variant<Internal_Decoding_Tree_Node, Symbol>;
+    static std::unordered_map<Symbol, std::vector<bool>> make_encoding_map(const Binary_Tree<Symbol>& decoding_tree);
 
-struct Internal_Decoding_Tree_Node
-{
-    Decoding_Tree* left;
-    Decoding_Tree* right;
+    Binary_Tree<Symbol> _decoding_tree;
+
+    std::unordered_map<Symbol, std::vector<bool>> _encoding_map;
 };
-
-std::vector<bool> encode(const std::vector<Symbol>& decoded_data, const Encoding_Map& encoding_map);
-
-std::vector<Symbol> decode(const std::vector<bool>& encoded_data, const Decoding_Tree& decoding_tree);
-
-}
