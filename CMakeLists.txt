@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_executable(squeeze_executable 
     src/main.cpp
-    src/huffman_encoding.cpp
     src/infinite_precision_proportion.cpp
     )
 
