@@ -5,8 +5,44 @@
 #include <cstdint>
 #include <memory>
 #include <optional>
+#include <string>
+#include <filesystem>
+#include <span>
+#include <unordered_map>
+#include <string_view>
+#include <vector>
 
-using Symbol = std::uint8_t;
+inline constexpr std::size_t BITS_PER_BYTE = 8;
+
+template<typename Symbol>
+std::unordered_map<Symbol, std::size_t> get_symbol_counts(const std::span<const Symbol> symbols)
+{
+    std::unordered_map<Symbol, std::size_t> symbol_counts;
+    
+    for (const auto& symbol : symbols)
+    {
+        ++symbol_counts[symbol];
+    }
+
+    return symbol_counts;
+}
+
+template<typename Symbol>
+std::unordered_map<Symbol, double> get_symbol_frequencies(const std::span<const Symbol> symbols)
+{
+    const std::unordered_map<Symbol, std::size_t> symbol_counts = get_symbol_counts(symbols);
+
+    std::unordered_map<Symbol, double> symbol_frequencies;
+    
+    for (const auto& [symbol, count] : symbol_counts)
+    {
+        const double frequency = static_cast<double>(count) / symbols.size();
+
+        symbol_frequencies.emplace(symbol, frequency);
+    }
+
+    return symbol_frequencies;
+}
 
 template<std::unsigned_integral T>
 bool sum_overflows(const T lhs, const T rhs)
